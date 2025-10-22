@@ -41,6 +41,19 @@ def get_U_gamma(R_est, trace=False):
     return U, gamma
 
 
+# Estime le nombre de sources K à partir du spectre des valeurs propres.
+def estimate_K(gamma, seuil_ratio=5):
+
+    ratios = gamma[:-1] / gamma[1:]
+    K = np.argmax(ratios > seuil_ratio) + 1  # premier saut significatif
+    
+    # Si aucun saut clair trouvé → bruit plat
+    if K == 0 or K >= len(gamma):
+        K = 1
+    print(K)
+    return K
+
+
 def get_piT(U_est, K):
     
     # Sous-espace signal
@@ -104,27 +117,38 @@ def calc_angles(angles, d_calc, K):
 
 
 
-def music(Y, N, M, K, trace=True):
+def music(Y, N, M, K=-1, trace=True, seuil_ratio=5):
     '''
-    Cette fonction reproduit l'algorithme MUSIC pour la localisation de sources
+    Cette fonction reproduit l'algorithme MUSIC pour l'estimation de nombre et la localisation des sources
     
     args:
         - Y (numpy array 1D)    Signal reçu
         - N (int)               Nombre d'observations
         - M (int)               Nombre de capeturs dans l'antenne
-        - K (int)               Nombre de sources estimées
+        - K (int) Default: -1   Nombre de sources estimées si deja connu (Laisser -1 pour que MUSIC l'estime lui-meme)
         - trace (bool) Def:True Indique si les courbs doivent etre tracées ou non
+        - seuil_ratio Def:5     Ratio pour l'estimation de K
     '''
 
     print("======Localisation Sources par MUSIC======")
+    
     print("Estimation de R...")
     R_est = estimate_R(Y)
+    
     print("Estimation de U...")
     U_est, gamma_est = get_U_gamma(R_est, trace=trace)
+    
+    if K == -1:
+        print("Estimation de K...")
+        K = estimate_K(gamma_est, seuil_ratio=5)
+        exit()
+        
     print("Estimation de Pi_T...")
     pi_T = get_piT(U_est, K)
+    
     print("Calcul de d...")
     angles, d_calc = trace_d_est(1000, pi_T, M, N, trace=trace)
+    
     print("Calculs des angles d'arrivées...")
     angles_est, valeurs_est = calc_angles(angles, d_calc, K)
     
@@ -139,4 +163,4 @@ if __name__ == "__main__":
     
     
     Y = build_Y(N_test, M_test, d_capteurs_test)
-    print(music(Y, N_test, M_test, K_test, trace=False))
+    print(music(Y, N_test, M_test, trace=False))
