@@ -141,7 +141,6 @@ def music(Y, N, M, K=-1, trace=True, seuil_ratio=5):
     if K == -1:
         print("Estimation de K...")
         K = estimate_K(gamma_est, seuil_ratio=5)
-        exit()
         
     print("Estimation de Pi_T...")
     pi_T = get_piT(U_est, K)

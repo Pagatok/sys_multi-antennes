@@ -24,11 +24,8 @@ def open_file(filepath):
 
 
 
-Ys, Fs, N, M = open_file("data.mat")
-print(Ys.shape)
-
-# Définition du système d'antennes
-d = 0.05
+Y, Fs, N, M = open_file("data.mat")
+print(music(Y, N, M, K=-1, trace=True, seuil_ratio=5))
 
 
 
@@ -36,4 +33,4 @@ d = 0.05
 
 
 # Préparation pour methode MUSIC
-#music(Y, N, M, K=-1, trace=True, seuil_ratio=5)
+
