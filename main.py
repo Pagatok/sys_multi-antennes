@@ -25,7 +25,7 @@ def open_file(filepath):
 
 
 Y, Fs, N, M = open_file("data.mat")
-print(music(Y, N, M, K=-1, trace=True, seuil_ratio=5))
+angles_est, _ = music(Y, N, M, K=-1, trace=True, seuil_ratio=5)
 
 
 
