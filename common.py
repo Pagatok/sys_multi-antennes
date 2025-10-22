@@ -10,3 +10,15 @@ def steering_vector(theta, M, d, lambda_c=lambda_c):
     phase = -1j * np.pi * m * np.sin(np.deg2rad(theta))
     a = np.exp(phase)
     return a
+
+def print_signal(Y, Fs=1):
+    
+    indices = np.arange(Y.size) / Fs
+    
+    plt.figure(figsize=(12,4))
+    plt.plot(indices, Y)
+    plt.xlabel("Temps (s)")
+    plt.ylabel("Amplitude")
+    plt.title("Visualisation du signal transmi")
+    plt.grid(True)
+    plt.show()
