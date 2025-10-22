@@ -116,7 +116,7 @@ def calc_angles(angles, d_calc, K):
     return angles_calc, valeurs
 
 
-
+# Algorithme principal de MUSIC a utiliser
 def music(Y, N, M, K=-1, trace=True, seuil_ratio=5):
     '''
     Cette fonction reproduit l'algorithme MUSIC pour l'estimation de nombre et la localisation des sources
