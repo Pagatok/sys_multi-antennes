@@ -1,13 +1,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.signal import find_peaks
+from music import calc_angles
 
 # --- Paramètres ---
-M = 18
+M = 20
 N = 500
-theta1_deg, theta2_deg = 40, 45
+theta1_deg, theta2_deg = 40, 50
 theta1, theta2 = np.deg2rad(theta1_deg), np.deg2rad(theta2_deg)   # conversion en radians
+sigma_s1 = 1
 sigma_s2 = 1
-sigma_v2 = 1
+sigma_v = 0.1
 
 # --- Vecteur directionnel a(theta) ---
 m = np.arange(M)
@@ -16,12 +19,12 @@ a2 = np.exp(-1j * np.pi * m * np.sin(theta2))
 A  = np.column_stack([a1, a2])
 
 # --- Signal source (gaussien complexe) ---
-s1 = np.sqrt(sigma_s2 / 2) * (np.random.randn(N) + 1j * np.random.randn(N))
+s1 = np.sqrt(sigma_s1 / 2) * (np.random.randn(N) + 1j * np.random.randn(N))
 s2 = np.sqrt(sigma_s2 / 2) * (np.random.randn(N) + 1j * np.random.randn(N))
 S = np.vstack([s1, s2])
 
 # --- Bruit additif (gaussien complexe) ---
-v = np.sqrt(sigma_v2 / 2) * (np.random.randn(M, N) + 1j * np.random.randn(M, N))
+v = np.sqrt(sigma_v / 2) * (np.random.randn(M, N) + 1j * np.random.randn(M, N))
 
 # --- Signal reçu par le réseau de capteurs ---
 y = A @ S + v
@@ -51,6 +54,9 @@ for theta_deg_scan in theta_scan:
     P_capon.append(1 / np.real(denom))
 
 P_capon = np.array(P_capon)
+
+angles, valeurs = calc_angles(theta_scan, P_capon, 2)
+print("Angles détectés (°):", np.round(angles, 2))
 
 # --- Visualisation de la partie réelle d'un capteur ---
 plt.figure(figsize=(8,4))
