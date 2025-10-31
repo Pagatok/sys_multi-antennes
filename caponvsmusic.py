@@ -1,9 +1,8 @@
 '''
-Versions abreges de capon et music pour effectuer des simulations en grand nombre dans el cadre de comparasion
+Versions abreges de capon et music pour effectuer des simulations en grand nombre dans le cadre de comparasion
 de differentes methodes
 
 Inclut aussi les fonctions effectuant differenetes comparaisons
-
 '''
 
 import numpy as np

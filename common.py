@@ -1,3 +1,8 @@
+'''
+Ensemble de focntions utiles dans les différents scripts
+Non voué a etre executé
+'''
+
 import numpy as np
 import matplotlib.pyplot as plt
 import sounddevice as sd
