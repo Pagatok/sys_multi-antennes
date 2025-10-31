@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
-from music import calc_angles
+#from music import calc_angles
 
 # --- Paramètres ---
 M = 20
@@ -54,6 +54,26 @@ for theta_deg_scan in theta_scan:
     P_capon.append(1 / np.real(denom))
 
 P_capon = np.array(P_capon)
+
+# Trouve les K minima locaux de d_est pour trouver les angles d'arrivée
+def calc_angles(angles, d_calc, K):
+    # Trouver les minima locaux de d_calc
+    peaks, props = find_peaks(d_calc, distance=5, prominence=0.0)
+
+    if len(peaks) == 0:
+        return np.array([]), np.array([])
+
+    # Trier par profondeur décroissante (prominence)
+    sorted_idx = np.argsort(props["prominences"])[::-1]
+
+    # Sélectionner les K plus significatifs
+    top_idx = sorted_idx[:K]
+
+    # Récupérer les angles et valeurs correspondants
+    angles_calc = angles[peaks[top_idx]]
+    valeurs = d_calc[peaks[top_idx]]
+
+    return angles_calc, valeurs
 
 angles, valeurs = calc_angles(theta_scan, P_capon, 2)
 print("Angles détectés (°):", np.round(angles, 2))
