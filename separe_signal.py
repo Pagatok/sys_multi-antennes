@@ -64,7 +64,7 @@ if __name__ == "__main__":
     Y, Fs, N, M = open_file("data.mat")
     
     # Detection du nombre de sources K et de leurs angles d'arrivées
-    angles_est = music(Y, M, K=-1, trace=True, seuil_ratio=5)
+    angles_est = music(Y, M, K=-1, trace=False, seuil_ratio=5)
     print(angles_est)
     K = len(angles_est)
     A = get_A(angles_est, M, K)
