@@ -7,7 +7,7 @@ from scipy.signal import find_peaks
 M = 20
 N = 500
 theta1_deg, theta2_deg = 40, 50
-theta1, theta2 = np.deg2rad(theta1_deg), np.deg2rad(theta2_deg)   # conversion en radians
+theta1, theta2 = np.deg2rad(theta1_deg), np.deg2rad(theta2_deg)
 sigma_s1 = 1
 sigma_s2 = 1
 sigma_v = 0.1
@@ -39,17 +39,16 @@ print("Matrice de covariance R̂_y :")
 print(np.round(R, 3))
 
 # --- Calcul du pseudo-spectre de Capon ---
-# Inversion de la matrice de covariance (avec régularisation)
 eps = 1e-6 * np.trace(R) / M  
 R_inv = np.linalg.inv(R + eps * np.eye(M))
 
 # Balayage angulaire
-theta_scan = np.linspace(-90, 90, 721)  # de -90° à 90°, pas de 0.25°
+theta_scan = np.linspace(-90, 90, 721)
 P_capon = []
 
 for theta_deg_scan in theta_scan:
     theta_rad_scan = np.deg2rad(theta_deg_scan)
-    a_theta = np.exp(-1j * np.pi * m * np.sin(theta_rad_scan))  # vecteur directeur
+    a_theta = np.exp(-1j * np.pi * m * np.sin(theta_rad_scan))
     denom = np.conj(a_theta).T @ R_inv @ a_theta
     P_capon.append(1 / np.real(denom))
 
