@@ -4,13 +4,13 @@ from scipy.signal import find_peaks
 #from music import calc_angles
 
 # --- Paramètres ---
-M = 20
-N = 500
+M = 25
+N = 1000
 theta1_deg, theta2_deg = 40, 45
 theta1, theta2 = np.deg2rad(theta1_deg), np.deg2rad(theta2_deg)
 sigma_s1 = 1
 sigma_s2 = 1
-sigma_v = 0.1
+sigma_v = 5
 
 # --- Vecteur directionnel a(theta) ---
 m = np.arange(M)
