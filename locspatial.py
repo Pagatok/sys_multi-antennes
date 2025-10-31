@@ -6,7 +6,7 @@ from scipy.signal import find_peaks
 # --- Paramètres ---
 M = 20
 N = 500
-theta1_deg, theta2_deg = 40, 50
+theta1_deg, theta2_deg = 40, 45
 theta1, theta2 = np.deg2rad(theta1_deg), np.deg2rad(theta2_deg)
 sigma_s1 = 1
 sigma_s2 = 1
@@ -89,7 +89,7 @@ plt.show()
 # --- Visualisation du pseudo-spectre ---
 plt.figure(figsize=(8,4))
 plt.plot(theta_scan, 10 * np.log10(P_capon / np.max(P_capon)))
-plt.title("Pseudo-spectre spatial de Capon (normalisé)")
+plt.title("Pseudo-spectre spatial de Capon")
 plt.xlabel("Angle θ (degrés)")
 plt.ylabel("P̂_Capon(θ) [dB]")
 plt.grid(True)
