@@ -13,7 +13,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 
 
-def capon_f(sigma_v=0.1, M=25):
+def capon_f(sigma_v=0.1, M=15):
     
     # --- Paramètres ---
     N = 1000
@@ -86,7 +86,7 @@ def capon_f(sigma_v=0.1, M=25):
     return np.round(angles, 2)
 
 
-def music_f(sigma_v=0.1, M=25):
+def music_f(sigma_v=0.1, M=15):
     
     N = 2000
     d = 0.2
